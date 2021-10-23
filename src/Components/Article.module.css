@@ -1,0 +1,19 @@
+.Article {
+    background-color: #999999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 350px;
+    height: 250px;
+    border-radius: 2px;
+    padding: 15px;
+}
+
+.Article h1 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.Article p {
+    margin-bottom: 5px;
+}
