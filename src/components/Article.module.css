@@ -5,7 +5,8 @@
     justify-content: space-between;
     width: 350px;
     height: 250px;
-    border-radius: 2px;
+    border-radius: 5px;
+    border: 2px solid black;
     padding: 15px;
 }
 

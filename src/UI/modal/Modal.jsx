@@ -1,11 +1,11 @@
 import React from 'react';
-import classes from "./MyModal.module.css"
+import classes from "./Modal.module.css"
 
-const MyModal = ({active, func, children}) => {
+const Modal = ({active, onClose, children}) => {
     return (
         <div
             className={active ? classes.MyModal + ' ' + classes.active : classes.MyModal}
-            onClick={() => func()}
+            onClick={onClose}
         >
             <div
                 className={active ? classes.MyModal__content + ' ' + classes.active : classes.MyModal__content}
@@ -17,4 +17,4 @@ const MyModal = ({active, func, children}) => {
     );
 };
 
-export default MyModal;
+export default Modal;
