@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Modal from "../../UI/modal/Modal";
 import Input from "../../UI/input/Input";
@@ -10,13 +10,14 @@ const EditPhotoModal = () => {
     const photos = useSelector(state => state.photos.photos)
     const isEditPhotoActive = useSelector(state => state.photos.isEditPhotoActive)
     const photo = photos.find(photo => photo.id === active)
-    const title = useSelector(state => state.photos.photoTitle)
-    const url = useSelector(state => state.photos.url)
+
+    const [title, setTitle] = useState()
+    const [url, setUrl] = useState()
 
     useEffect(() => {
         if (photo) {
-            dispatch({type: "SET_PHOTO_TITLE", payload: photo.title})
-            dispatch({type: "SET_URL", payload: photo.url})
+            setTitle(photo.title)
+            setUrl(photo.url)
         }
     }, [isEditPhotoActive])
 
@@ -27,21 +28,19 @@ const EditPhotoModal = () => {
         dispatch({
             type: "SET_PHOTOS", payload: photos.map(item => {
                 if (item.id === photo.id) {
-                    item.title = title
-                    item.url = url
-                    return item
+                    return {...item, title, url}
                 } else return item
             })
         })
         dispatch({type: "SET_IS_EDIT_PHOTO_ACTIVE", payload: false})
-        dispatch({type: "SET_PHOTO_TITLE", payload: ""})
-        dispatch({type: "SET_URL", payload: ""})
+        setTitle('')
+        setUrl("")
     }
 
     const handleCloseModal = () => {
         dispatch({type: "SET_IS_EDIT_PHOTO_ACTIVE", payload: false})
-        dispatch({type: "SET_PHOTO_TITLE", payload: ""})
-        dispatch({type: "SET_URL", payload: ""})
+        setTitle('')
+        setUrl("")
     }
 
     return (
@@ -54,12 +53,12 @@ const EditPhotoModal = () => {
             <form>
                 <Input
                     value={title}
-                    onChange={event => dispatch({type: "SET_PHOTO_TITLE", payload: event.target.value})}
+                    onChange={event => setTitle(event.target.value)}
                     placeholder='Enter title...'
                 />
                 <Input
                     value={url}
-                    onChange={event => dispatch({type: "SET_URL", payload: event.target.value})}
+                    onChange={event => setUrl(event.target.value)}
                     placeholder='Enter url...'
                 />
                 <Button

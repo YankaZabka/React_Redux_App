@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import classes from './Page.module.css'
 import Button from "../UI/button/Button";
 import {useDispatch, useSelector} from "react-redux";
-import axios from 'axios'
 import {nanoid} from "nanoid";
 import {BeatLoader} from "react-spinners";
 import Article from "./Article";
@@ -11,19 +10,12 @@ import {useFetching} from "../hooks/useFetching";
 const Page = ({pageName, children}) => {
 
     const dispatch = useDispatch()
-    const items = useSelector(state => state[`${pageName.toLowerCase()}s`][`${pageName.toLowerCase()}s`])
     const isItemsLoading = useSelector(state => state[`${pageName.toLowerCase()}s`][`is${pageName}sLoading`])
     const visibleItems = useSelector(state => state[`${pageName.toLowerCase()}s`][`visible${pageName}s`])
     const isItemsBig = useSelector(state => state[`${pageName.toLowerCase()}s`][`is${pageName}sBig`])
-    const fetchData = useFetching(
-        async () => await axios.get(`https://jsonplaceholder.typicode.com/${pageName}s`),
-        pageName)
+    const {items} = useFetching(pageName)
     const error = useSelector(state => state.general.error)
 
-    useEffect(() => {
-        fetchData()
-        //    TODO: always download new posts
-    }, [])
 
     const handleShowMore = () => {
         dispatch({type: `SET_VISIBLE_${pageName.toUpperCase()}S`, payload: visibleItems + 3})

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import Modal from "../../UI/modal/Modal";
 import Input from "../../UI/input/Input";
@@ -10,27 +10,28 @@ const EditUserModal = () => {
     const users = useSelector(state => state.users.users)
     const isEditUserActive = useSelector(state => state.users.isEditUserActive)
     const user = users.find(user => user.id === active)
-    const name = useSelector(state => state.users.name)
-    const username = useSelector(state => state.users.username)
-    const phone = useSelector(state => state.users.phone)
-    const email = useSelector(state => state.users.email)
-    const website = useSelector(state => state.users.website)
+
+    const [name, setName] = useState()
+    const [username, setUsername] = useState()
+    const [phone, setPhone] = useState()
+    const [email, setEmail] = useState()
+    const [website, setWebsite] = useState()
 
     const clearInputsData = () => {
-        dispatch({type: "SET_NAME", payload: ""})
-        dispatch({type: "SET_USERNAME", payload: ""})
-        dispatch({type: "SET_PHONE", payload: ""})
-        dispatch({type: "SET_EMAIL", payload: ""})
-        dispatch({type: "SET_WEBSITE", payload: ""})
+        setName('')
+        setUsername("")
+        setPhone("")
+        setEmail("")
+        setWebsite("")
     }
 
     useEffect(() => {
         if (user) {
-            dispatch({type: "SET_NAME", payload: user.name})
-            dispatch({type: "SET_USERNAME", payload: user.username})
-            dispatch({type: "SET_PHONE", payload: user.phone})
-            dispatch({type: "SET_EMAIL", payload: user.email})
-            dispatch({type: "SET_WEBSITE", payload: user.website})
+            setName(user.name)
+            setUsername(user.username)
+            setPhone(user.phone)
+            setEmail(user.email)
+            setWebsite(user.website)
         }
     }, [isEditUserActive])
 
@@ -41,12 +42,7 @@ const EditUserModal = () => {
         dispatch({
             type: "SET_USERS", payload: users.map(item => {
                 if (item.id === user.id) {
-                    item.name = name
-                    item.username = username
-                    item.phone = phone
-                    item.email = email
-                    item.website = website
-                    return item
+                    return {...item, name, username, phone, email, website}
                 } else return item
             })
         })
@@ -69,29 +65,29 @@ const EditUserModal = () => {
             <form>
                 <Input
                     value={name}
-                    onChange={event => dispatch({type: "SET_NAME", payload: event.target.value})}
+                    onChange={event => setName(event.target.value)}
                     placeholder='Enter name...'
                 />
                 <Input
                     value={username}
-                    onChange={event => dispatch({type: "SET_USERNAME", payload: event.target.value})}
+                    onChange={event => setUsername(event.target.value)}
                     placeholder='Enter username...'
                 />
                 <Input
                     value={phone}
-                    onChange={event => dispatch({type: "SET_PHONE", payload: event.target.value})}
+                    onChange={event => setPhone(event.target.value)}
                     placeholder='Enter phone...'
                     type="tel"
                 />
                 <Input
                     value={email}
-                    onChange={event => dispatch({type: "SET_EMAIL", payload: event.target.value})}
+                    onChange={event => setEmail(event.target.value)}
                     placeholder='Enter email...'
                     type="email"
                 />
                 <Input
                     value={website}
-                    onChange={event => dispatch({type: "SET_WEBSITE", payload: event.target.value})}
+                    onChange={event => setWebsite(event.target.value)}
                     placeholder='Enter website...'
                     type="url"
                 />

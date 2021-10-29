@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from "../../UI/modal/Modal";
 import Input from "../../UI/input/Input";
 import Button from "../../UI/button/Button";
@@ -10,13 +10,14 @@ const EditPostModal = () => {
     const posts = useSelector(state => state.posts.posts)
     const isEditPostActive = useSelector(state => state.posts.isEditPostActive)
     const post = posts.find(post => post.id === active)
-    const title = useSelector(state => state.posts.title)
-    const body = useSelector(state => state.posts.body)
+
+    const [title, setTitle] = useState()
+    const [body, setBody] = useState()
 
     useEffect(() => {
         if (post) {
-            dispatch({type: "SET_TITLE", payload: post.title})
-            dispatch({type: "SET_BODY", payload: post.body})
+            setTitle(post.title)
+            setBody(post.body)
         }
     }, [isEditPostActive])
 
@@ -27,21 +28,19 @@ const EditPostModal = () => {
         dispatch({
             type: "SET_POSTS", payload: posts.map(item => {
                 if (item.id === post.id) {
-                    item.title = title
-                    item.body = body
-                    return item
+                    return {...item, title, body}
                 } else return item
             })
         })
         dispatch({type: "SET_IS_EDIT_POST_ACTIVE", payload: false})
-        dispatch({type: "SET_TITLE", payload: ""})
-        dispatch({type: "SET_BODY", payload: ""})
+        setTitle(post.title)
+        setBody(post.body)
     }
 
     const handleCloseModal = () => {
         dispatch({type: "SET_IS_EDIT_POST_ACTIVE", payload: false})
-        dispatch({type: "SET_TITLE", payload: ""})
-        dispatch({type: "SET_BODY", payload: ""})
+        setTitle(post.title)
+        setBody(post.body)
     }
 
     return (
@@ -54,12 +53,12 @@ const EditPostModal = () => {
             <form>
                 <Input
                     value={title}
-                    onChange={event => dispatch({type: "SET_TITLE", payload: event.target.value})}
+                    onChange={event => setTitle(event.target.value)}
                     placeholder='Enter title...'
                 />
                 <Input
                     value={body}
-                    onChange={event => dispatch({type: "SET_BODY", payload: event.target.value})}
+                    onChange={event => setBody(event.target.value)}
                     placeholder='Enter text...'
                 />
                 <Button

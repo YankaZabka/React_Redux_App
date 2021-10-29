@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {nanoid} from "nanoid";
 import Modal from "../../UI/modal/Modal";
@@ -7,10 +7,11 @@ import Button from "../../UI/button/Button";
 
 const AddPhotoModal = () => {
     const dispatch = useDispatch()
-    const title = useSelector(state => state.photos.photoTitle)
-    const url = useSelector(state => state.photos.url)
     const photos = useSelector(state => state.photos.photos)
     const isAddPhotoActive = useSelector(state => state.photos.isAddPhotoActive)
+
+    const [title, setTitle] = useState()
+    const [url, setUrl] = useState()
 
     const handleCreateArticle = (event) => {
         event.preventDefault()
@@ -23,14 +24,14 @@ const AddPhotoModal = () => {
             }]
         })
         dispatch({type: "SET_IS_ADD_PHOTO_ACTIVE", payload: false})
-        dispatch({type: "SET_PHOTO_TITLE", payload: ""})
-        dispatch({type: "SET_URL", payload: ""})
+        setTitle('')
+        setUrl("")
     }
 
     const handleCloseModal = () => {
         dispatch({type: "SET_IS_ADD_PHOTO_ACTIVE", payload: false})
-        dispatch({type: "SET_PHOTO_TITLE", payload: ""})
-        dispatch({type: "SET_URL", payload: ""})
+        setTitle('')
+        setUrl("")
     }
 
 
@@ -44,12 +45,12 @@ const AddPhotoModal = () => {
             <form>
                 <Input
                     value={title}
-                    onChange={event => dispatch({type: "SET_PHOTO_TITLE", payload: event.target.value})}
+                    onChange={event => setTitle(event.target.value)}
                     placeholder='Enter title...'
                 />
                 <Input
                     value={url}
-                    onChange={event => dispatch({type: "SET_URL", payload: event.target.value})}
+                    onChange={event => setUrl(event.target.value)}
                     placeholder='Enter url...'
                     type="url"
                 />
