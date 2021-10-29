@@ -7,8 +7,6 @@ const defaultState = {
     isAddPhotoActive: false,
     isEditPhotoActive: false,
     isDeletePhotoActive: false,
-    photoTitle: '',
-    url: "",
 }
 
 export const photosReducer = (state = defaultState, action) => {
@@ -31,10 +29,6 @@ export const photosReducer = (state = defaultState, action) => {
             return {...state, isEditPhotoActive: action.payload}
         case "SET_IS_DELETE_PHOTO_ACTIVE":
             return {...state, isDeletePhotoActive: action.payload}
-        case "SET_PHOTO_TITLE":
-            return {...state, photoTitle: action.payload}
-        case "SET_URL":
-            return {...state, url: action.payload}
         default:
             return state
     }

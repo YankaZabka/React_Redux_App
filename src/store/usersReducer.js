@@ -7,11 +7,6 @@ const defaultState = {
     isAddUserActive: false,
     isEditUserActive: false,
     isDeleteUserActive: false,
-    name: '',
-    username: "",
-    phone: "",
-    email: "",
-    website: "",
 }
 
 export const usersReducer = (state = defaultState, action) => {
@@ -34,16 +29,6 @@ export const usersReducer = (state = defaultState, action) => {
             return {...state, isEditUserActive: action.payload}
         case "SET_IS_DELETE_USER_ACTIVE":
             return {...state, isDeleteUserActive: action.payload}
-        case "SET_NAME":
-            return {...state, name: action.payload}
-        case "SET_USERNAME":
-            return {...state, username: action.payload}
-        case "SET_PHONE":
-            return {...state, phone: action.payload}
-        case "SET_EMAIL":
-            return {...state, email: action.payload}
-        case "SET_WEBSITE":
-            return {...state, website: action.payload}
         default:
             return state
     }

@@ -7,8 +7,6 @@ const defaultState = {
     isAddPostActive: false,
     isEditPostActive: false,
     isDeletePostActive: false,
-    title: '',
-    body: "",
 }
 
 export const postsReducer = (state = defaultState, action) => {
@@ -31,10 +29,6 @@ export const postsReducer = (state = defaultState, action) => {
             return {...state, isEditPostActive: action.payload}
         case "SET_IS_DELETE_POST_ACTIVE":
             return {...state, isDeletePostActive: action.payload}
-        case "SET_TITLE":
-            return {...state, title: action.payload}
-        case "SET_BODY":
-            return {...state, body: action.payload}
         default:
             return state
     }
