@@ -10,3 +10,9 @@ export const getData = (callback, pageName) => {
 
     }
 }
+
+// export const updatePost = ({postId, data}) => {
+//     return async (dispatch) => {
+//         const response = await axios.patch()
+//     }
+// }

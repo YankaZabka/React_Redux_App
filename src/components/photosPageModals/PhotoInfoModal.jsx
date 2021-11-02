@@ -19,8 +19,7 @@ const PhotoInfoModal = () => {
             <h1>Article info</h1>
             <hr/>
             <h2 style={{margin: "4px 0 2px"}}>{photo.title}</h2>
-            <p>{photo.url}</p>
-            {/*TODO: overflow is need to be fixed*/}
+            <p style={{overflowWrap: "break-word"}}>{photo.url}</p>
         </Modal>
     );
 };

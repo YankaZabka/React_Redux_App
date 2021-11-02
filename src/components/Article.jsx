@@ -56,7 +56,7 @@ const Article = ({item, size, pageName}) => {
                         </div>
                         : pageName === "Photo"
                             ? <div>
-                                <h1>{item.title || item.photoTitle}</h1>
+                                <h1>{item.title}</h1>
                                 <hr style={{marginBottom: 10}}/>
                                 <div style={{display: "flex"}}>
                                     <p style={{marginRight: 5}}><strong>image:</strong></p>
