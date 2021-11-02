@@ -16,3 +16,9 @@ export const getData = (callback, pageName) => {
 //         const response = await axios.patch()
 //     }
 // }
+
+// export const uploadPost = ({data}) => {
+//     return async (dispatch) => {
+//
+//     }
+// }

@@ -1,31 +1,28 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {nanoid} from "nanoid";
 import Modal from "../../UI/modal/Modal";
 import Input from "../../UI/input/Input";
 import Button from "../../UI/button/Button";
+import axios from "axios";
 
 const AddPhotoModal = () => {
     const dispatch = useDispatch()
     const photos = useSelector(state => state.photos.photos)
     const isAddPhotoActive = useSelector(state => state.photos.isAddPhotoActive)
 
-    const [title, setTitle] = useState()
-    const [url, setUrl] = useState()
+    const [title, setTitle] = useState("")
+    const [url, setUrl] = useState("")
 
-    const handleCreateArticle = (event) => {
+    const handleCreateArticle = async (event) => {
         event.preventDefault()
-        dispatch({
-            type: "SET_PHOTOS", payload: [...photos, {
-                id: nanoid(),
-                title: title,
-                url: url,
-                color: "#999999"
-            }]
-        })
-        dispatch({type: "SET_IS_ADD_PHOTO_ACTIVE", payload: false})
-        setTitle('')
-        setUrl("")
+        const postData = {
+            title: title,
+            url: url,
+            color: "#999999"
+        }
+        const response = await axios.post("https://jsonplaceholder.typicode.com/photos", postData)
+        dispatch({type: 'SET_PHOTOS', payload: [...photos, response.data]})
+        handleCloseModal()
     }
 
     const handleCloseModal = () => {

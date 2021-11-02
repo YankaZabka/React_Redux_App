@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {nanoid} from "nanoid";
 import Modal from "../../UI/modal/Modal";
 import Input from "../../UI/input/Input";
 import Button from "../../UI/button/Button";
+import axios from "axios";
 
 const AddUserModal = () => {
     const dispatch = useDispatch()
     const users = useSelector(state => state.users.users)
     const isAddUserActive = useSelector(state => state.users.isAddUserActive)
 
-    const [name, setName] = useState()
-    const [username, setUsername] = useState()
-    const [phone, setPhone] = useState()
-    const [email, setEmail] = useState()
-    const [website, setWebsite] = useState()
+    const [name, setName] = useState("")
+    const [username, setUsername] = useState("")
+    const [phone, setPhone] = useState("")
+    const [email, setEmail] = useState("")
+    const [website, setWebsite] = useState("")
 
     const clearInputsData = () => {
         setName('')
@@ -24,21 +24,19 @@ const AddUserModal = () => {
         setWebsite("")
     }
 
-    const handleCreateArticle = (event) => {
+    const handleCreateArticle = async (event) => {
         event.preventDefault()
-        dispatch({
-            type: "SET_USERS", payload: [...users, {
-                id: nanoid(),
-                name: name,
-                username: username,
-                phone: phone,
-                email: email,
-                website: website,
-                color: "#999999"
-            }]
-        })
-        dispatch({type: "SET_IS_ADD_USER_ACTIVE", payload: false})
-        clearInputsData()
+        const postData = {
+            name: name,
+            username: username,
+            phone: phone,
+            email: email,
+            website: website,
+            color: "#999999"
+        }
+        const response = await axios.post("https://jsonplaceholder.typicode.com/photos", postData)
+        dispatch({type: 'SET_USERS', payload: [...users, response.data]})
+        handleCloseModal()
     }
 
     const handleCloseModal = () => {

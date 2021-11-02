@@ -6,6 +6,7 @@ import axios from "axios";
 export const useFetching = (pageName) => {
     const dispatch = useDispatch()
     const items = useSelector(state => state[`${pageName.toLowerCase()}s`][`${pageName.toLowerCase()}s`])
+    console.log("USE FETCHING!")
 
     const loadItems = async () => {
         try {
@@ -20,6 +21,7 @@ export const useFetching = (pageName) => {
 
     useEffect(() => {
         if (!items.length) {
+            console.log('LOADiTEMS!')
             void loadItems()
         }
     }, [])
