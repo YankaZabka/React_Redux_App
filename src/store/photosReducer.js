@@ -13,6 +13,8 @@ export const photosReducer = (state = defaultState, action) => {
     switch (action.type) {
         case "SET_PHOTOS":
             return {...state, photos: action.payload}
+        case "SET_ADD_PHOTO":
+            return {...state, photos: [...state.photos, action.payload]}
         case "SET_ACTIVE_PHOTO":
             return {...state, activePhoto: action.payload}
         case "SET_VISIBLE_PHOTOS":

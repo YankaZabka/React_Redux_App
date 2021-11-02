@@ -13,6 +13,8 @@ export const postsReducer = (state = defaultState, action) => {
     switch (action.type) {
         case "SET_POSTS":
             return {...state, posts: action.payload}
+        case "SET_ADD_POST":
+            return {...state, posts: [...state.posts, action.payload]}
         case "SET_ACTIVE_POST":
             return {...state, activePost: action.payload}
         case "SET_VISIBLE_POSTS":

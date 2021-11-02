@@ -3,11 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import Modal from "../../UI/modal/Modal";
 import Input from "../../UI/input/Input";
 import Button from "../../UI/button/Button";
-import axios from "axios";
+import {uploadPost} from "../../store/thunk";
 
 const AddPhotoModal = () => {
     const dispatch = useDispatch()
-    const photos = useSelector(state => state.photos.photos)
     const isAddPhotoActive = useSelector(state => state.photos.isAddPhotoActive)
 
     const [title, setTitle] = useState("")
@@ -20,8 +19,7 @@ const AddPhotoModal = () => {
             url: url,
             color: "#999999"
         }
-        const response = await axios.post("https://jsonplaceholder.typicode.com/photos", postData)
-        dispatch({type: 'SET_PHOTOS', payload: [...photos, response.data]})
+        await dispatch(uploadPost(postData, "photo"))
         handleCloseModal()
     }
 

@@ -3,11 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import Modal from "../../UI/modal/Modal";
 import Input from "../../UI/input/Input";
 import Button from "../../UI/button/Button";
-import axios from "axios";
+import {uploadPost} from "../../store/thunk";
 
 const AddUserModal = () => {
     const dispatch = useDispatch()
-    const users = useSelector(state => state.users.users)
     const isAddUserActive = useSelector(state => state.users.isAddUserActive)
 
     const [name, setName] = useState("")
@@ -34,8 +33,7 @@ const AddUserModal = () => {
             website: website,
             color: "#999999"
         }
-        const response = await axios.post("https://jsonplaceholder.typicode.com/photos", postData)
-        dispatch({type: 'SET_USERS', payload: [...users, response.data]})
+        await dispatch(uploadPost(postData, "user"))
         handleCloseModal()
     }
 

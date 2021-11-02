@@ -13,6 +13,8 @@ export const usersReducer = (state = defaultState, action) => {
     switch (action.type) {
         case "SET_USERS":
             return {...state, users: action.payload}
+        case "SET_ADD_USER":
+            return {...state, users: [...state.users, action.payload]}
         case "SET_ACTIVE_USER":
             return {...state, activeUser: action.payload}
         case "SET_VISIBLE_USERS":
