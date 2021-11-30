@@ -8,10 +8,10 @@ import UserInfoModal from "../components/usersPageModals/UserInfoModal";
 const Users = () => {
     return (
         <Page pageName="User">
-                <AddUserModal/>
-                <DeleteUserModal/>
-                <EditUserModal/>
-                <UserInfoModal/>
+            <AddUserModal/>
+            <DeleteUserModal/>
+            <EditUserModal/>
+            <UserInfoModal/>
         </Page>
     );
 };

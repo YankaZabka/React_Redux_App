@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This is one-page **training** application. It uses **Redux**, **custom hook**, and works with [JSONPlaceholder](https://jsonplaceholder.typicode.com/).
+
 ## Available Scripts
 
 In the project directory, you can run:

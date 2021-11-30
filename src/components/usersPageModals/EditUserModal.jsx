@@ -11,11 +11,11 @@ const EditUserModal = () => {
     const isEditUserActive = useSelector(state => state.users.isEditUserActive)
     const user = users.find(user => user.id === active)
 
-    const [name, setName] = useState()
-    const [username, setUsername] = useState()
-    const [phone, setPhone] = useState()
-    const [email, setEmail] = useState()
-    const [website, setWebsite] = useState()
+    const [name, setName] = useState("")
+    const [username, setUsername] = useState("")
+    const [phone, setPhone] = useState("")
+    const [email, setEmail] = useState("")
+    const [website, setWebsite] = useState("")
 
     const clearInputsData = () => {
         setName('')
@@ -37,7 +37,7 @@ const EditUserModal = () => {
 
     if (user === undefined) return null
 
-    const handleEditArticle = (event) => {
+    const handleEditArticle = async (event) => {
         event.preventDefault()
         dispatch({
             type: "SET_USERS", payload: users.map(item => {
@@ -46,8 +46,7 @@ const EditUserModal = () => {
                 } else return item
             })
         })
-        dispatch({type: "SET_IS_EDIT_USER_ACTIVE", payload: false})
-        clearInputsData()
+        handleCloseModal()
     }
 
     const handleCloseModal = () => {

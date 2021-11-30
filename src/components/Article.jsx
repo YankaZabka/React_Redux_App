@@ -37,7 +37,7 @@ const Article = ({item, size, pageName}) => {
     return (
         <div>
             <div className={classes.Article} style={{
-                width: size ? '550px' : '359px',
+                width: size ? '550px' : '400px',
                 backgroundColor: item.color,
             }}>
 

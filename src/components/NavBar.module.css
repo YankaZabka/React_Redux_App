@@ -19,13 +19,13 @@
     margin-right: 20px;
 }
 
-.NavBar__subTitles a{
+.NavBar__subTitles a {
     color: #999999;
     text-decoration: none;
     margin-right: 20px;
     transition: color 0.2s ease-in;
 }
 
-.NavBar__subTitles a:hover{
+.NavBar__subTitles a:hover {
     color: white;
 }
